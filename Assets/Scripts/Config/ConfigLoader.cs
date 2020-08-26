@@ -2,7 +2,7 @@
 using System.IO;
 using BayatGames.Serialization.Formatters.Json;
 
-//создается конфиг txt файл при первой загрузке игры, возможно поменяет количество доп противников в волне waveBias и кулдаун между волнами
+//создается конфиг txt файл при первой загрузке игры,  дает возможность поменять количество доп противников в волне waveBias и кулдаун между волнами
 public static class ConfigLoader
 {
     [RuntimeInitializeOnLoadMethod]
