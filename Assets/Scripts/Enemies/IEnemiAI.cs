@@ -4,7 +4,7 @@ using UnityEngine;
 
 //интерфейс для всех "возможных" врагов
 
-public interface EnemiAIInterface
+public interface IEnemiAI
 {
     //метод берущий Move компонент и назначающий базовые параметры и State Machine Behaviour,
     //у разных врагов возможно будут разные параметры

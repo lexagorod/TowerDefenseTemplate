@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface TowerShootInterface
+public interface ITowerShoot
 {
     void shoot(GameObject enemy);
  

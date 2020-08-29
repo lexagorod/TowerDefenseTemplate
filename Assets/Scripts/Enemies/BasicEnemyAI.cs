@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 //основной класс работающий в информацией о враге
-public class BasicEnemyAI : MonoBehaviour, EnemiAIInterface
+public class BasicEnemyAI : MonoBehaviour, IEnemiAI
 { 
     
     StateEnemy currentState; // текущий State Machine Behavior в котором находится враГ
@@ -72,7 +72,7 @@ public class BasicEnemyAI : MonoBehaviour, EnemiAIInterface
 
     }
 
-    EnemyMove EnemiAIInterface.getMoveComponent()
+    EnemyMove IEnemiAI.getMoveComponent()
     {
         return enemyMove;
     }

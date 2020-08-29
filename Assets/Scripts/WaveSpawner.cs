@@ -82,7 +82,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 GameObject[] route = GameRoutes.instance.routes[Random.Range(0, GameRoutes.instance.routes.Length)].route; // берет случайный путь
                 enemy.transform.position = route[0].transform.position;
-                enemy.GetComponent<EnemiAIInterface>().assignBehavior(new EnemyMove(route, enemy)); //при активации назначает ему этот путь и поведение 
+                enemy.GetComponent<IEnemiAI>().assignBehavior(new EnemyMove(route, enemy)); //при активации назначает ему этот путь и поведение 
                 enemy.SetActive(true);
             }
             yield return new WaitForSeconds(2);
@@ -132,7 +132,7 @@ public class WaveSpawner : MonoBehaviour
                     {
                         GameObject[] route = GameRoutes.instance.routes[routeNumber].route;
                         enemy.transform.position = route[0].transform.position;
-                        enemy.GetComponent<EnemiAIInterface>().assignBehavior(new EnemyMove(route, enemy));
+                        enemy.GetComponent<IEnemiAI>().assignBehavior(new EnemyMove(route, enemy));
                         enemy.SetActive(true);
                     }
                     yield return new WaitForSeconds(spawnInterval);

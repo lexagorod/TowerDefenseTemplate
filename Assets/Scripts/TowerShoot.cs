@@ -4,7 +4,7 @@ using UnityEngine;
 
 //все что связано с атакой товера, интерфейс держит только метод shoot, потому что для различных башен возможен различный захват противников в цель
 //компонент ложится на Shoot чайлд геймобджект башни
-public class TowerShoot : MonoBehaviour, TowerShootInterface
+public class TowerShoot : MonoBehaviour, ITowerShoot
 {
     public List<GameObject> enemiesInRange;
 
@@ -32,7 +32,7 @@ public class TowerShoot : MonoBehaviour, TowerShootInterface
         foreach (GameObject enemy in enemiesInRange)
         {
             //захватывается противник, которому ближе всего до ближайшей целевой точки
-            float distanceToGoal = enemy.GetComponent<EnemiAIInterface>().getMoveComponent().DistanceToGoal();
+            float distanceToGoal = enemy.GetComponent<IEnemiAI>().getMoveComponent().DistanceToGoal();
             if (distanceToGoal < minimalEnemyDistance)
             {
                 target = enemy;
@@ -54,7 +54,7 @@ public class TowerShoot : MonoBehaviour, TowerShootInterface
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<EnemiAIInterface>() != null)
+        if (other.gameObject.GetComponent<IEnemiAI>() != null)
         {
             enemiesInRange.Add(other.gameObject);
         }
@@ -62,7 +62,7 @@ public class TowerShoot : MonoBehaviour, TowerShootInterface
 
     void OnTriggerExit2D(Collider2D other)
     {
-        if (other.gameObject.GetComponent<EnemiAIInterface>() != null)
+        if (other.gameObject.GetComponent<IEnemiAI>() != null)
         {
             enemiesInRange.Remove(other.gameObject);
         }
@@ -72,7 +72,7 @@ public class TowerShoot : MonoBehaviour, TowerShootInterface
         public void shoot(GameObject enemy)
     {
         anim.SetTrigger(shootTrigger);
-        enemy.GetComponent<EnemiAIInterface>().getEnemyData().getDamage(towerData.damage);
+        enemy.GetComponent<IEnemiAI>().getEnemyData().getDamage(towerData.damage);
 
     }
 }
