@@ -32,7 +32,7 @@ public class TowerData : MonoBehaviour
     {
         if (playerData.gold >= cost)
         {
-            playerData.goldSpent(cost);
+            playerData.GoldSpent(cost);
 
             fireRate *= 0.8f;
             damage = damage + 1;
@@ -43,7 +43,7 @@ public class TowerData : MonoBehaviour
     }
 
     //в случае новой игры обновляет параметры вышки
-    public void reset()
+    public void Reset()
     {
         cost = minCost;
         fireRate = minFireRate;

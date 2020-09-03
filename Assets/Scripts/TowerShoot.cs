@@ -32,7 +32,7 @@ public class TowerShoot : MonoBehaviour, ITowerShoot
         foreach (GameObject enemy in enemiesInRange)
         {
             //захватывается противник, которому ближе всего до ближайшей целевой точки
-            float distanceToGoal = enemy.GetComponent<IEnemiAI>().getMoveComponent().DistanceToGoal();
+            float distanceToGoal = enemy.GetComponent<IEnemiAI>().GetMoveComponent().DistanceToGoal();
             if (distanceToGoal < minimalEnemyDistance)
             {
                 target = enemy;
@@ -44,7 +44,7 @@ public class TowerShoot : MonoBehaviour, ITowerShoot
         {
             if (Time.time - lastShotTime > towerData.fireRate)
             {
-                shoot(target);
+                Shoot(target);
                 lastShotTime = Time.time;
             }
 
@@ -69,10 +69,10 @@ public class TowerShoot : MonoBehaviour, ITowerShoot
     }
 
 
-        public void shoot(GameObject enemy)
+        public void Shoot(GameObject enemy)
     {
         anim.SetTrigger(shootTrigger);
-        enemy.GetComponent<IEnemiAI>().getEnemyData().getDamage(towerData.damage);
+        enemy.GetComponent<IEnemiAI>().GetEnemyData().GetDamage(towerData.damage);
 
     }
 }

@@ -34,14 +34,14 @@ public class ObjectPool : MonoBehaviour
             {
                 GameObject obj = (GameObject)Instantiate(item.objectToPool);
                 obj.GetComponent<Renderer>().sortingOrder = i + 1; // чтобы не смешивались
-                setChildSortingLayerTheSame(obj, objInPool.Count + 1);
+                SetChildSortingLayerTheSame(obj, objInPool.Count + 1);
                 obj.SetActive(false);
                 objInPool.Add(obj);
             }
         }
     }
 
-    public void disableObjectsInPool()
+    public void DisableObjectsInPool()
     {
         for (int i = 0; i < objInPool.Count; i++)
         {
@@ -67,7 +67,7 @@ public class ObjectPool : MonoBehaviour
                 {
                     GameObject obj = (GameObject)Instantiate(item.objectToPool);
                     obj.GetComponent<Renderer>().sortingOrder = objInPool.Count + 1;
-                    setChildSortingLayerTheSame(obj, objInPool.Count + 1);
+                    SetChildSortingLayerTheSame(obj, objInPool.Count + 1);
                     obj.SetActive(false);
                     objInPool.Add(obj);
                     return obj;
@@ -77,7 +77,7 @@ public class ObjectPool : MonoBehaviour
         return null;
     }
 
-    void setChildSortingLayerTheSame(GameObject gO, int sortLayer)
+    void SetChildSortingLayerTheSame(GameObject gO, int sortLayer)
     {
         for (int i = 0; i < gO.transform.childCount; i++)
         {

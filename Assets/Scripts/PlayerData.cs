@@ -29,13 +29,13 @@ public class PlayerData : MonoBehaviour
         _lives = initLives;
         _gold = initGold;
 
-        refreshUI();
+        RefreshUI();
 
     }
 
     private void Update()
     {
-        checkGameOver();
+        CheckGameOver();
     }
 
 
@@ -50,41 +50,41 @@ public class PlayerData : MonoBehaviour
         public TextMeshProUGUI killedEnemies;
         public GameObject gameOverScreen;
 
-    }
+    } 
     public TextMeshProUGUI livesTMP { get { return elementsUI.lives; } }
     public TextMeshProUGUI goldTMP { get { return elementsUI.gold; } }
     public GameObject gameOver { get { return elementsUI.gameOverScreen; } } // UI панель отображающая конец игры
     public TextMeshProUGUI killedEnemies { get { return elementsUI.killedEnemies; } } // количество убитых противников
 
-    void refreshUI()
+    void RefreshUI()
     {
         elementsUI.lives.text = _lives.ToString();
         elementsUI.gold.text = _gold.ToString();
     }
 
-    public void damageToLives(int damage)
+    public void DamageToLives(int damage)
     {
         _lives -= damage;
 
-        refreshUI();
+        RefreshUI();
     }
-    public void goldSpent(int gold)
+    public void GoldSpent(int gold)
     {
         _gold -= gold;
 
-        refreshUI();
+        RefreshUI();
     }
 
-    public void bountyGold(int gold)
+    public void BountyGold(int gold)
     {
         deadEnemies++;
         _gold += gold;
 
-        refreshUI();
+        RefreshUI();
     }
 
     //проверка на конец игры, если жизней меньше 0
-    void checkGameOver()
+    void CheckGameOver()
     {
         if (_lives <= 0)
         {
@@ -92,18 +92,18 @@ public class PlayerData : MonoBehaviour
             Time.timeScale = 0;
             killedEnemies.text = "Killed Enemies: " + deadEnemies;
 
-            resetGame();
+            ResetGame();
           
         }
     }
 
     //игра заново, если нажать любую кнопку
-    void resetGame()
+    void ResetGame()
     {
         if (Input.anyKey)
         {
             deadEnemies = 0;
-            WaveSpawner.WS.resetSpawner();
+            WaveSpawner.WS.ResetSpawner();
             gameOver.SetActive(false);
             Time.timeScale = 1;
             _lives = initLives;
@@ -111,10 +111,10 @@ public class PlayerData : MonoBehaviour
 
             foreach (GameObject gO in GameObject.FindGameObjectsWithTag("Tower"))
             {
-                gO.GetComponent<TowerData>().reset();
+                gO.GetComponent<TowerData>().Reset();
             }
 
-            refreshUI();
+            RefreshUI();
         }
     }
 

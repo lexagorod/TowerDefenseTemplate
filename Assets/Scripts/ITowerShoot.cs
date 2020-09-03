@@ -4,6 +4,6 @@ using UnityEngine;
 
 public interface ITowerShoot
 {
-    void shoot(GameObject enemy);
+    void Shoot(GameObject enemy);
  
 }

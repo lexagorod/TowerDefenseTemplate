@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
 //основной класс работающий в информацией о враге
 public class BasicEnemyAI : MonoBehaviour, IEnemiAI
 { 
@@ -21,25 +22,25 @@ public class BasicEnemyAI : MonoBehaviour, IEnemiAI
 
     private void Awake()
     {
-        enemyData.setMaxHealthValue(); // запоминается максимальный размер здоровья, установленный в эдиторе
+        enemyData.SetMaxHealthValue(); // запоминается максимальный размер здоровья, установленный в эдиторе
     }
     void Update()
     {
         if (enemyMove != null)
         {
             currentState = currentState.Process(); //вызывается основной метод отвечающий за State Machine Behavior
-            refreshStatus();
+            RefreshStatus();
         }
     }
 
     //колится на каждого врага через WaveSpawner
-    public void assignBehavior(EnemyMove EM)
+    public void AssignBehavior(EnemyMove EM)
     {
         this.enemyMove = EM;
 
-        enemyData.resetHP();
+        enemyData.ResetHP();
 
-        enemyData.getStronger();
+        enemyData.GetStronger();
 
         anim = GetComponent<Animator>();
         healthBar = transform.GetChild(1).GetComponent<HealthBar>();
@@ -50,13 +51,13 @@ public class BasicEnemyAI : MonoBehaviour, IEnemiAI
         currentState = new Walk(this.gameObject, this.enemyMove, anim, enemyData);
     }
 
-    public void refreshStatus()
+    public void RefreshStatus()
     {
         healthBar.currentHealth = enemyData.health;
         if (healthBar.currentHealth <= 0)
         {
             gameObject.SetActive(false);
-            PlayerData.playerData.bountyGold(enemyData.bounty);
+            PlayerData.playerData.BountyGold(enemyData.bounty);
         }
     }
 
@@ -66,18 +67,18 @@ public class BasicEnemyAI : MonoBehaviour, IEnemiAI
         if (collision.tag == "EndZone")
         {
             gameObject.SetActive(false);
-            PlayerData.playerData.damageToLives(enemyData.damage);
+            PlayerData.playerData.DamageToLives(enemyData.damage);
         }
 
 
     }
 
-    EnemyMove IEnemiAI.getMoveComponent()
+    EnemyMove IEnemiAI.GetMoveComponent()
     {
         return enemyMove;
     }
 
-    public Enemy getEnemyData()
+    public Enemy GetEnemyData()
     {
         return enemyData;
     }

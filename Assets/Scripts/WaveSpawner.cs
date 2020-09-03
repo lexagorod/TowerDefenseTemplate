@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+#pragma warning disable 0649
 //класс для формирования волн
 public class WaveSpawner : MonoBehaviour
 {
@@ -11,7 +12,9 @@ public class WaveSpawner : MonoBehaviour
     [SerializeField]
     string[] enemyTAGS;
 
+
     Coroutine CR;
+
 
     [SerializeField]
     [Header("Custom Wave Number (Set 0 for endless random spawn)")]
@@ -29,50 +32,50 @@ public class WaveSpawner : MonoBehaviour
     {
         wavesBias = ConfigLoader.LoadData().waveRandomFactor;
         bigWaveCD = ConfigLoader.LoadData().waveCD;
-        CR = StartCoroutine(spawnWave());
+        CR = StartCoroutine(SpawnWave());
     }
 
     //обновляем информацию о волне
-    public void resetSpawner()
+    public void ResetSpawner()
     {
         StopAllCoroutines();
         CancelInvoke();
 
-        ObjectPool.ObjPool.disableObjectsInPool();
+        ObjectPool.ObjPool.DisableObjectsInPool();
 
         waveNumber = 1;
 
-        CR = StartCoroutine(spawnWave());
+        CR = StartCoroutine(SpawnWave());
 
     }
 
     //вызывается рандомную волну, если не настроены кастомные волны в инспекторе
-    IEnumerator spawnWave()
+    IEnumerator SpawnWave()
     {
         if (waves.Length != 0)
         {
             foreach (CustomWave w in waves)
             {
-                StartCoroutine(w.spawnWave());
+                StartCoroutine(w.SpawnWave());
                 yield return new WaitForSeconds(bigWaveCD);
             }
         }
         else
         {
             
-            InvokeRepeating("spawnRandomWave", 1, bigWaveCD);
+            InvokeRepeating("SpawnRandomWave", 1, bigWaveCD);
             yield return new WaitForEndOfFrame();
         }
   
     }
 
     //коллит корутину, нужен для InvokeRepeating
-    void spawnRandomWave()
+    void SpawnRandomWave()
     {
-        StartCoroutine(spawnRandomWaves());
+        StartCoroutine(SpawnRandomWaves());
     }
 
-    public IEnumerator spawnRandomWaves()
+    public IEnumerator SpawnRandomWaves()
     {
         for (var i = 0; i < WS.waveNumber + Random.Range(0, WS.wavesBias); i++)
         {
@@ -82,7 +85,7 @@ public class WaveSpawner : MonoBehaviour
             {
                 GameObject[] route = GameRoutes.instance.routes[Random.Range(0, GameRoutes.instance.routes.Length)].route; // берет случайный путь
                 enemy.transform.position = route[0].transform.position;
-                enemy.GetComponent<IEnemiAI>().assignBehavior(new EnemyMove(route, enemy)); //при активации назначает ему этот путь и поведение 
+                enemy.GetComponent<IEnemiAI>().AssignBehavior(new EnemyMove(route, enemy)); //при активации назначает ему этот путь и поведение 
                 enemy.SetActive(true);
             }
             yield return new WaitForSeconds(2);
@@ -100,11 +103,11 @@ public class WaveSpawner : MonoBehaviour
         public SubWave[] subwaves;
     
 
-        public IEnumerator spawnWave()
+        public IEnumerator SpawnWave()
         {
            foreach(SubWave sw in subwaves)
             {
-                WS.StartCoroutine(sw.spawnSubWave());
+                WS.StartCoroutine(sw.SpawnSubWave());
                 yield return new WaitForSeconds(subWavesCD);
                 WS.waveNumber++;
             }
@@ -123,7 +126,7 @@ public class WaveSpawner : MonoBehaviour
             [SerializeField]
             int routeNumber;
 
-            public IEnumerator spawnSubWave()
+            public IEnumerator SpawnSubWave()
             {
                 for (var i = 0; i < maxEnemies; i++)
                 {
@@ -132,7 +135,7 @@ public class WaveSpawner : MonoBehaviour
                     {
                         GameObject[] route = GameRoutes.instance.routes[routeNumber].route;
                         enemy.transform.position = route[0].transform.position;
-                        enemy.GetComponent<IEnemiAI>().assignBehavior(new EnemyMove(route, enemy));
+                        enemy.GetComponent<IEnemiAI>().AssignBehavior(new EnemyMove(route, enemy));
                         enemy.SetActive(true);
                     }
                     yield return new WaitForSeconds(spawnInterval);

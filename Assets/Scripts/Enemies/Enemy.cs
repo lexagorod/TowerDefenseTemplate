@@ -23,25 +23,25 @@ public class Enemy
     [HideInInspector]
     public int maxHP;
 
-    public void setMaxHealthValue()
+    public void SetMaxHealthValue()
     {
         maxHP = _health;
     }
-    public void resetHP()
+    public void ResetHP()
     {
         _health = maxHP;
 
     }
 
     //увеличивает хп в зависимоти от волны поделенной на 2
-    public void getStronger()
+    public void GetStronger()
     {
         int strongerIndex = WaveSpawner.WS.waveNumber/2;
         _health += Random.Range(strongerIndex, strongerIndex + 2);
 
     }
 
-    public void getDamage(int damage)
+    public void GetDamage(int damage)
     {
         _health -= damage;
     }
